@@ -68,7 +68,12 @@ public class Student {
     private String email;
     // 一对一关联, 懒加载，用到再查Account
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="account_id")
     private Account account;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="customer_id")
+    private List<Message> messages;
 }
 
 
@@ -82,6 +87,18 @@ public class Account {
     private String username;
     private String password;
 }
+
+
+@Entity
+@Table(name = "message")
+@Data
+public class Message {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String info;
+}
+
 
 ```
 
